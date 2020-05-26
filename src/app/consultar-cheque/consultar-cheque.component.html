@@ -1,0 +1,46 @@
+<form [formGroup]="myForm">
+
+  Value: {{ myForm.value | json }}
+
+  <hr>
+
+  <mat-form-field>
+      <input matInput placeholder="DOCUMENTO" formControlName="documento" (ngSubmit)="submitHandler()">
+      <mat-hint align="end"> Para el documento menor que 10.000.000 ingrese el sexo delante del n&uacute;mero - <br>
+        Solo para per&iacute;odos mayores a 1999. Sexo F: femenino  M: masculino</mat-hint>
+      <mat-error *ngIf="documento.invalid && documento.touched" class="has-text-danger">
+        DOCUMENTO INCORRECTO
+      </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput placeholder="SECUENCIA" formControlName="secuencia">
+      <mat-hint align="end"> Solo ingrese secuencia si desea una busqueda puntual</mat-hint>
+      <mat-error *ngIf="secuencia.invalid && secuencia.touched" class="has-text-danger">
+        SECUENCIA INCORRECTO
+      </mat-error>
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+      <mat-select formControlName="periodo" placeholder="career">
+          <mat-option value="Magician">Magician</mat-option>
+          <mat-option value="Clown">Clown</mat-option>
+          <mat-option value="Juggler">Juggler</mat-option>
+      </mat-select>
+      <mat-error *ngIf="periodo.invalid && periodo.touched" class="has-text-danger">
+        PERIODO INCORRECTO
+      </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="checkCD" color="primary">Recuperar Solo Documento Ingresado</mat-checkbox>
+
+  <button mat-raised-button [disabled]="myForm.invalid || loading" color="primary">ACEPTAR</button>
+
+</form>
+<ul>
+  <li>
+    <button mat-raised-button (click)="openDialog()">BUSCAR POR APELLIDO</button>
+  </li>
+</ul>
