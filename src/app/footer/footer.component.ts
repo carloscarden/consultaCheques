@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
       <footer fxFlexOffset="auto">
 
-      <p>Test footer</p>
+      <p>Direccion general de cultura y educación</p>
 
       </footer>
   `,

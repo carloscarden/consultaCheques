@@ -8,12 +8,12 @@ export interface Personas {
 
 const ELEMENT_DATA: Personas[] = [
   {
-  documento:'a',  apYnom:'a',
- },
+    documento: 'a', apYnom: 'a',
+  },
 
-  {apYnom: 'Helium',  documento: 'b'},
+  { apYnom: 'Helium', documento: 'b' },
 
-  {apYnom: 'Lithium',  documento:'c'},
+  { apYnom: 'Lithium', documento: 'c' },
 
 
 ];
@@ -27,11 +27,13 @@ export class ListarCambioDocComponent implements OnInit {
   displayedColumns: string[] =
     ['apYnom', 'documento'];
 
+  dataSource = ELEMENT_DATA;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  openDialog(){}
+  openDialog() { }
 
 }

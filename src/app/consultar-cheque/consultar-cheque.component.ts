@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ConsultarPersonaComponent } from '../consultar-persona/consultar-persona.component';
 
 export interface DialogData {
@@ -22,46 +23,51 @@ export class ConsultarChequeComponent implements OnInit {
   loading = false;
   success = false;
 
-  constructor(private fb: FormBuilder, public dialog: MatDialog) { }
+  constructor(
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
       documento: ['', [
         Validators.required,
-        Validators.length === 8
+        Validators.pattern('[a-zA-Z ]*')
       ]],
       secuencia: ['', [
-        Validators.minLength(2)
+        Validators.maxLength(3)
       ]],
       periodo: ['', [
         Validators.required
       ]],
-      checkCD:false
-    })
+      checkCD: false
+    });
   }
 
-  get documento(){
+  get documento() {
     return this.myForm.get('documento');
   }
 
-  get secuencia(){
+  get secuencia() {
     return this.myForm.get('secuencia');
   }
 
-  get periodo(){
+  get periodo() {
     return this.myForm.get('periodo');
   }
 
-  get checkCD(){
+  get checkCD() {
     return this.myForm.get('checkCD');
   }
 
 
   async submitHandler() {
+    console.log('asdffasd');
     this.loading = true;
 
     const formValue = this.myForm.value;
-
+    this.router.navigateByUrl(`/listarCheques`);
 
     this.loading = false;
   }
@@ -69,7 +75,7 @@ export class ConsultarChequeComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(ConsultarPersonaComponent, {
       width: '500px',
-      data: {name: this.name, animal: this.animal}
+      data: { name: this.name, animal: this.animal }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -79,6 +85,6 @@ export class ConsultarChequeComponent implements OnInit {
   }
 
 
-  
+
 
 }
