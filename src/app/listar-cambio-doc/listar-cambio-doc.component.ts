@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../_services';
+
 
 export interface Personas {
   apYnom: string;
@@ -29,9 +32,22 @@ export class ListarCambioDocComponent implements OnInit {
 
   dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
+    let documentoAbuscar = this.route.snapshot.paramMap.get('documento');
+    this.userService.verCambiosEnElDocumento(documentoAbuscar).subscribe(
+      (data)=>{
+        console.log('data', data);
+      },
+      error =>{
+
+      }
+    )
   }
 
   openDialog() { }

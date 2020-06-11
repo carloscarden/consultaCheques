@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
+
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { UserService } from '../_services';
 
 export interface PeriodicElement {
   name: string;
@@ -32,18 +36,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./listar-persona.component.scss']
 })
 export class ListarPersonaComponent implements OnInit {
-  personaAbuscar;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(false, []);
 
 
   constructor(
+    private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, 
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.personaAbuscar = this.route.snapshot.paramMap.get('persona');
+    let personaAbuscar = this.route.snapshot.paramMap.get('persona');
+    this.userService.verPersonas(personaAbuscar).subscribe(
+      (data) =>{
+        console.log(data);
+
+      },
+      error =>{
+        this._snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
+          duration: 2000,
+        });
+
+      }
+    )
   }
 
 

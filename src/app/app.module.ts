@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -13,11 +14,12 @@ import {MatChipsModule} from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
 
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { ConsultarChequeComponent } from './consultar-cheque/consultar-cheque.component';
 import { ConsultarPersonaComponent } from './consultar-persona/consultar-persona.component';
@@ -27,6 +29,8 @@ import { ListarCambioDocComponent } from './listar-cambio-doc/listar-cambio-doc.
 import { DatosPersonalesComponent } from './datos-personales/datos-personales.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ToastComponent } from './toast/toast.component';
+import { RolesComponent } from './roles/roles.component';
 
 
 @NgModule({
@@ -39,10 +43,12 @@ import { FooterComponent } from './footer/footer.component';
     ListarCambioDocComponent,
     DatosPersonalesComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ToastComponent,
+    RolesComponent
   ],
   entryComponents: [
-    ConsultarPersonaComponent
+    ConsultarPersonaComponent, ToastComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +56,7 @@ import { FooterComponent } from './footer/footer.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
@@ -57,7 +64,8 @@ import { FooterComponent } from './footer/footer.component';
     MatChipsModule,
     MatDialogModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

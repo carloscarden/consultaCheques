@@ -15,4 +15,20 @@ export class UserService {
     getById(id: number) {
         return this.http.get<User>(`${environment.api_url}/users/${id}`);
     }
+
+    verSiHuboCambios(docu: string){
+        return this.http.get<any>(`${environment.api_url}/persona/huboCambios/${docu}`);
+    }
+
+    verCambiosEnElDocumento(docu: string){
+        return this.http.get<any>(`${environment.api_url}/persona/mostrarDatosCambiados/${docu}`);
+    }
+
+    verPersonas(apeynom: string){
+        return this.http.get<any>(`${environment.api_url}/persona/obtenerPersonas/${apeynom}`);
+    }
+
+
+
+
 }

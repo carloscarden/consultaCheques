@@ -1,83 +1,110 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-export interface PeriodicElement {
-  sec: string;
-  periodo: number;
-  fechaAfec: number;
-  foja: string;
-  cargo: string;
-  ordenDePago: string;
-  fechaPago: string;
-  liquido: string;
-  dep: string;
-  distrito: string;
-  tipoOrg: string;
-  esc: string;
-}
+import { ConsultaChequeService } from '../_services/consulta-cheque.service';
+import { Cheque } from '../_models/cheque';
 
-const ELEMENT_DATA: PeriodicElement[] = [
+
+
+
+const ELEMENT_DATA: Cheque[] =[
   {
-    periodo: 1, sec: 'Hydrogen', fechaAfec: 1.0079, foja: 'H',
-    cargo: 'a', ordenDePago: 'a', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
+  periodo: "2004/01",
+  documento: "23175024",
+  secuencia: "6",
+  fechaafec: "2004/01",
+  apellido: "CORTEZ MIRIAN",
+  foja: "0",
+  cargo: "0",
+  dep: "OFICIAL",
+  dis: "MERLO               ",
+  tor: "ESCUELA PRIMARIA BASICA",
+  escu: "70",
+  opag: "72",
+  dopag: "72 - SDOS TIT 2004 CAJ.",
+  cdoc: null,
+  liquido: "430.82",
+  fecafec: "200401",
+  nrocheq: "76729",
+  fpago: null,
+  cat: "MG",
+  apart: null,
+  item: null
   },
-
   {
-    periodo: 2, sec: 'Helium', fechaAfec: 4.0026, foja: 'He',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
+  periodo: "2004/01",
+  documento: "23175024",
+  secuencia: "6",
+  fechaafec: "2004/01",
+  apellido: "CORTEZ MIRIAN",
+  foja: "0",
+  cargo: "0",
+  dep: "OFICIAL",
+  dis: "MERLO               ",
+  tor: "ESCUELA PRIMARIA BASICA",
+  escu: "70",
+  opag: "145",
+  dopag: "145 - INCENTIVO DOCENTE 1ER. SEM. 4TA. CUOTA -CAJERO",
+  cdoc: null,
+  liquido: "62.64",
+  fecafec: "200401",
+  nrocheq: "579441",
+  fpago: null,
+  cat: "MG",
+  apart: null,
+  item: null
   },
-
   {
-    periodo: 3, sec: 'Lithium', fechaAfec: 6.941, foja: 'Li',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
+  periodo: "2004/02",
+  documento: "23175024",
+  secuencia: "6",
+  fechaafec: "2004/01",
+  apellido: "CORTEZ MIRIAN",
+  foja: "0",
+  cargo: "0",
+  dep: "OFICIAL",
+  dis: "MERLO               ",
+  tor: "ESCUELA PRIMARIA BASICA",
+  escu: "70",
+  opag: "207",
+  dopag: "207 - INCENTIVO DOCENTE 1ER. SEM 5TA CUOTA CAJERO",
+  cdoc: null,
+  liquido: "61.84",
+  fecafec: "200401",
+  nrocheq: "57804",
+  fpago: null,
+  cat: "MG",
+  apart: null,
+  item: null
   },
-
   {
-    periodo: 4, sec: 'Beryllium', fechaAfec: 9.0122, foja: 'Be',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-
-  {
-    periodo: 5, sec: 'Boron', fechaAfec: 10.811, foja: 'B',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-
-  {
-    periodo: 6, sec: 'Carbon', fechaAfec: 12.0107, foja: 'C',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-
-  {
-    periodo: 7, sec: 'Nitrogen', fechaAfec: 14.0067, foja: 'N',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-
-  {
-    periodo: 8, sec: 'Oxygen', fechaAfec: 15.9994, foja: 'O',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-
-  {
-    periodo: 9, sec: 'Fluorine', fechaAfec: 18.9984, foja: 'F',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-
-  {
-    periodo: 10, sec: 'Neon', fechaAfec: 20.1797, foja: 'Ne',
-    cargo: 'a', ordenDePago: 'b', fechaPago: 'b', liquido: 'c',
-    dep: 'd', distrito: 'e', tipoOrg: 'f', esc: 'g'
-  },
-];
+  periodo: "2004/02",
+  documento: "23175024",
+  secuencia: "6",
+  fechaafec: "2004/02",
+  apellido: "CORTEZ MIRIAN",
+  foja: "0",
+  cargo: "0",
+  dep: "OFICIAL",
+  dis: "MERLO               ",
+  tor: "ESCUELA PRIMARIA BASICA",
+  escu: "70",
+  opag: "223",
+  dopag: "223 - SDOS TIT FEB/2004 CAJERO",
+  cdoc: null,
+  liquido: "472.89",
+  fecafec: "200402",
+  nrocheq: "56769",
+  fpago: null,
+  cat: "MG",
+  apart: null,
+  item: null
+  }
+  ];
 
 
 
@@ -88,17 +115,39 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListarChequesComponent implements OnInit {
   displayedColumns: string[] =
-    ['sec', 'periodo', 'fechaAfec', 'foja',
-      'cargo', 'ordenDePago', 'fechaPago', 'liquido',
-      'dep', 'distrito', 'tipoOrg', 'esc', 'select'];
 
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+    ['periodo', 'documento', 'secuencia', 'fechaafec',
+      'apellido', 'foja', 'cargo', 'dep',
+      'dis', 'tor', 'escu', 'opag', 'dopag','cdoc',
+      'liquido', 'fecafec', 'nrocheq' ,  'fpago',
+      'cat',  'apart', 'item'];
+
+  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Cheque>([]);
+  selection = new SelectionModel<Cheque>(true, []);
 
 
-  constructor() { }
+  constructor(
+    private consultaChequeService: ConsultaChequeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    let docu = this.route.snapshot.paramMap.get('docu');
+    let secu = this.route.snapshot.paramMap.get('secu');
+    let anio = this.route.snapshot.paramMap.get('anio');
+    let checkCD = this.route.snapshot.paramMap.get('checkCD');
+    this.consultaChequeService.verCheques(docu, secu, anio, checkCD).subscribe(
+      data =>{
+        this.dataSource = new MatTableDataSource<Cheque>(data);
+      },
+      error =>{
+        this._snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
+          duration: 2000,
+        });
+      }
+    );
   }
 
 
@@ -117,7 +166,7 @@ export class ListarChequesComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: Cheque): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -128,5 +177,7 @@ export class ListarChequesComponent implements OnInit {
   imprimir() {  }
 
 
-  cancelar() { }
+  cancelar() { 
+    this.router.navigateByUrl(``);
+  }
 }

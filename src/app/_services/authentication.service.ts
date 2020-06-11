@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
+import { Role } from '../_models/role';
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,8 +22,17 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
+
+    public get currentUserRoles(): Role[] {
+        return this.currentUserSubject.value.rolesManejados;
+    }
+
+
+
+
+
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.api_url}/users/authenticate`, { username, password })
+        return this.http.post<any>(`http://localhost:4200/users/authenticate`, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

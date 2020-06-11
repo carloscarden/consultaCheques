@@ -8,26 +8,24 @@
       <input matInput placeholder="NRO DE DOCUMENTO" formControlName="documento" >
       <mat-hint align="end"> Para el documento menor que 10.000.000 ingrese el sexo delante del n&uacute;mero - <br>
         Sexo F: femenino  M: masculino (Solo para per&iacute;odos mayores a 1999.) </mat-hint>
-      <mat-error *ngIf="documento.invalid && documento.touched" class="has-text-danger">
-        DOCUMENTO INCORRECTO
-      </mat-error>
+      <mat-error *ngIf="documento.errors?.pattern && documento.touched" class="has-text-danger">
+        El documento ingresado no es el correcto
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-      <input matInput placeholder="SECUENCIA" formControlName="secuencia">
+      <input type="number" matInput placeholder="SECUENCIA" formControlName="secuencia"  min="0" max="999">
       <mat-hint align="end"> Solo ingrese secuencia si desea una busqueda puntual</mat-hint>
       <mat-error *ngIf="secuencia.invalid && secuencia.touched" class="has-text-danger">
-        SECUENCIA INCORRECTO
-      </mat-error>
+        SECUENCIA INCORRECTO, Números del 0 al 999
+      </mat-error> 
   </mat-form-field>
 
 
 
   <mat-form-field>
       <mat-select formControlName="periodo" placeholder="PERIODO">
-          <mat-option value="Magician">Magician</mat-option>
-          <mat-option value="Clown">Clown</mat-option>
-          <mat-option value="Juggler">Juggler</mat-option>
+        <mat-option  *ngFor="let y of years" [value]="y">{{y}}</mat-option>
       </mat-select>
       <mat-error *ngIf="periodo.invalid && periodo.touched" class="has-text-danger">
         PERIODO INCORRECTO

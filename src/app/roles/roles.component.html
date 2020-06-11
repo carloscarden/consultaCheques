@@ -1,0 +1,56 @@
+<div class="content">
+   <div *ngIf="!habilitado">
+
+    <form [formGroup]="myForm" [hidden]="success" (ngSubmit)="submitHandler()">
+      <hr>
+  
+      <mat-form-field>
+        <mat-label>Usuario</mat-label>
+        <input matInput placeholder="username" formControlName="email">
+      </mat-form-field>
+
+
+      <mat-form-field >
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    
+
+  
+  
+      <button mat-button color="primary" type="submit" [disabled]="myForm.invalid">Submit Form</button>
+  
+      </form>
+  
+   </div>
+
+
+  <div *ngIf="habilitado">
+    ROLES:
+    <form (ngSubmit)="onSubmit()" #roleForm="ngForm">
+
+      <mat-form-field>
+        <mat-select placeholder="placeholder" id="role" required name="role"#role="ngModel">
+          <mat-option  *ngFor="let role of rolesAmostrar" [value]="'role'" placeholder="ROLES">{{role}}</mat-option>
+        </mat-select>
+        <mat-error [hidden]="role.valid || role.pristine" class="has-text-danger">
+          El rol que va a utilizar es requerido
+        </mat-error>
+      </mat-form-field>
+
+
+      <button mat-raised-button [disabled]="!roleForm.form.valid" color="primary">ACEPTAR</button>
+    
+
+    </form>
+
+
+    
+  </div>
+
+
+
+</div>

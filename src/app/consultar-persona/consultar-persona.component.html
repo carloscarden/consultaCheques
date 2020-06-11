@@ -8,3 +8,7 @@
   <button mat-button (click)="buscar()" slot="center">Buscar</button>
   <button mat-button [mat-dialog-close]="data.animal" slot="end">Cancelar</button>
 </div>
+
+<mat-error *ngIf="busquedaIncorrecta" class="has-text-danger">
+  Ingrese su busqueda para continuar
+</mat-error> 

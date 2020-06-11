@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { User } from '../_models/user';
@@ -8,12 +9,47 @@ import { Role } from '../_models/role';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
+    data: any;
+    constructor(public http: HttpClient) {}
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const users: User[] = [
-            { id: 1, username: 'admin', password: 'admin', firstName: 'Admin', lastName: 'User', role: Role.Admin },
-            { id: 2, username: 'banco', password: 'banco', firstName: 'Normal', lastName: 'User', role: Role.Banco },
-            { id: 2, username: 'doner', password: 'doner', firstName: 'Normal', lastName: 'User', role: Role.Donante }
-        ];
+        const users: User[] = [ 
+            {
+              id: 123,
+              username: "carloscarden",
+              password: "123",
+              firstName: "carlos",
+              lastName: "carden",
+              role: Role.Admin,
+              rolesManejados: [Role.Admin, Role.GREMIO],
+              idEntidad : 123,
+              documento: "35399944",
+              descDistrito: "dd",
+              numDistrito: 123,
+              tipo_org: "32",
+              dependencia: "a",
+              escuela: 123,
+              reg: "r1"
+            },
+            {
+              id: 123,
+              username: "caca",
+              password: "123",
+              firstName: "cnombre"  ,
+              lastName: "cape",
+              role: Role.GREMIO,
+              rolesManejados: [Role.GREMIO],
+              idEntidad: 123,
+              documento: "36399944",
+              descDistrito: "dd",
+              numDistrito: 123,
+              tipo_org: "32",
+              dependencia: "a",
+              escuela: 123,
+              reg: "r1"
+            }
+              
+          ];
 
         const authHeader = request.headers.get('Authorization');
         const isLoggedIn = authHeader && authHeader.startsWith('Bearer fake-jwt-token');
@@ -22,6 +58,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
+
 
             // authenticate - public
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
@@ -33,6 +70,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     firstName: user.firstName,
                     lastName: user.lastName,
                     role: user.role,
+                    rolesManejados: user.rolesManejados,
                     token: `fake-jwt-token.${user.role}`
                 });
             }
@@ -80,6 +118,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function error(message) {
             return throwError({ status: 400, error: { message } });
         }
+
+
+        function load(): any {
+            if (this.data) {
+              return of(this.data);
+            } else {
+              return this.http
+                .get('assets/data/data.json')
+            }
+          }
     }
 }
 

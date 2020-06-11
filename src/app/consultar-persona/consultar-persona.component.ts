@@ -15,6 +15,7 @@ export interface DialogData {
   styleUrls: ['./consultar-persona.component.scss']
 })
 export class ConsultarPersonaComponent implements OnInit {
+  busquedaIncorrecta = false;
 
   constructor(
     public dialogRef: MatDialogRef<ConsultarPersonaComponent>,
@@ -26,8 +27,13 @@ export class ConsultarPersonaComponent implements OnInit {
   }
 
   buscar() {
-    this.dialogRef.close();
-    this.router.navigateByUrl(`/busquedaPersona/${this.data.name}`);
+    if( (this.data.name !== '') && (this.data.name !== undefined)){
+      this.dialogRef.close();
+      this.router.navigateByUrl(`/busquedaPersona/${this.data.name}`);
+    } else {
+      this.busquedaIncorrecta = true;
+    }
+   
   }
 
 }

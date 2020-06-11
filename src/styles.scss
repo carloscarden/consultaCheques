@@ -66,3 +66,16 @@ body {
     width: 25%;
 }
 body { margin: 0; }
+
+
+ 
+table {
+    width: 100%;
+  }
+  .mat-row.hovered {
+      background: #eee;
+  }
+  
+  .mat-row.highlighted {
+    background: #999;
+  }

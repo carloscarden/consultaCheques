@@ -1,0 +1,37 @@
+[ 
+  {
+    "id": 123,
+    "username": "carloscarden",
+    "password": "123",
+    "firstName": "carlos",
+    "lastName": "carden",
+    "role": "ADMIN",
+    "rolesManejados": ["ADMIN", "GREMIO"],
+    "idEntidad" : 123,
+    "documento": "35399944",
+	"descDistrito": "dd",
+	"numDistrito": 123,
+	"tipo_org": "32",
+	"dependencia": "a",
+	"escuela": "e1",
+	"reg": "r1"
+  },
+  {
+    "id": 123,
+    "username": "caca",
+    "password": "123",
+    "firstName": "cnombre"  ,
+    "lastName": "cape",
+    "role": "GREMIO",
+    "rolesManejados": ["GREMIO"],
+    "idEntidad" : 123,
+    "documento": "36399944",
+	"descDistrito": "dd",
+	"numDistrito": 123,
+	"tipo_org": "32",
+	"dependencia": "a",
+	"escuela": "e1",
+	"reg": "r1"
+  }
+    
+]
