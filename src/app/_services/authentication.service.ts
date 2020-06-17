@@ -56,6 +56,8 @@ export class AuthenticationService {
         const c = this.currentUserValue;
         c.role = rol;
         this.currentUserSubject.next(c);
+        console.log('rol seteado', c);
+        console.log('nuevoRol', this.currentUserValue);
 
     }
 }

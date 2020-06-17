@@ -140,7 +140,8 @@ export class ListarChequesComponent implements OnInit {
     const checkCD = this.route.snapshot.paramMap.get('checkCD');
     this.consultaChequeService.verCheques(docu, secu, anio, checkCD).subscribe(
       data => {
-        this.dataSource = new MatTableDataSource<Cheque>(data);
+        console.log('datos', data);
+        //this.dataSource = new MatTableDataSource<Cheque>(data);
       },
       error => {
         this.snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
@@ -178,6 +179,6 @@ export class ListarChequesComponent implements OnInit {
 
 
   cancelar() {
-    this.router.navigateByUrl(``);
+    this.router.navigateByUrl(`/busqueda`);
   }
 }

@@ -5,7 +5,7 @@
     <form (ngSubmit)="onSubmit()" #roleForm="ngForm">
       <mat-form-field>
         <mat-select placeholder="Rol que desea utilizar" id="role" name="role" [(ngModel)]="rol"   #role="ngModel" required>
-          <mat-option  *ngFor="let role of rolesAmostrar" [value]="'role'" placeholder="ROLES">{{role}}</mat-option>
+          <mat-option  *ngFor="let role of rolesAmostrar" [value]="role" placeholder="ROLES">{{role}}</mat-option>
         </mat-select>
         <mat-error [hidden]="role.valid || role.pristine" class="has-text-danger">
           El rol que va a utilizar es requerido
