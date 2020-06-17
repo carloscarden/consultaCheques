@@ -39,28 +39,29 @@ export class ListarPersonaComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(false, []);
+  personaAbuscar;
 
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router, 
-    private _snackBar: MatSnackBar) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    let personaAbuscar = this.route.snapshot.paramMap.get('persona');
-    this.userService.verPersonas(personaAbuscar).subscribe(
-      (data) =>{
+    this.personaAbuscar = this.route.snapshot.paramMap.get('persona');
+    this.userService.verPersonas(this.personaAbuscar).subscribe(
+      (data) => {
         console.log(data);
 
       },
-      error =>{
-        this._snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
+      error => {
+        this.snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
           duration: 2000,
         });
 
       }
-    )
+    );
   }
 
 

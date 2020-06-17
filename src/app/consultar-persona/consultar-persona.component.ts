@@ -27,13 +27,13 @@ export class ConsultarPersonaComponent implements OnInit {
   }
 
   buscar() {
-    if( (this.data.name !== '') && (this.data.name !== undefined)){
+    if ((this.data.name !== '') && (this.data.name !== undefined)) {
       this.dialogRef.close();
       this.router.navigateByUrl(`/busquedaPersona/${this.data.name}`);
     } else {
       this.busquedaIncorrecta = true;
     }
-   
+
   }
 
 }

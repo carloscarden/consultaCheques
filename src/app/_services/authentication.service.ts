@@ -50,4 +50,12 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
+
+
+    setearRol(rol) {
+        const c = this.currentUserValue;
+        c.role = rol;
+        this.currentUserSubject.next(c);
+
+    }
 }

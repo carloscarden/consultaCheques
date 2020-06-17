@@ -6,31 +6,38 @@ import { ListarChequesComponent } from './listar-cheques/listar-cheques.componen
 import { ListarCambioDocComponent } from './listar-cambio-doc/listar-cambio-doc.component';
 import { RolesComponent } from './roles/roles.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { AuthRolGuard } from './_guards/auth-rol.guard';
+import { NoAutorizadoComponent } from './no-autorizado/no-autorizado.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RolesComponent
+    component: NoAutorizadoComponent
+  },
+  {
+    path: 'roles',
+    component: RolesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'busqueda',
     component: ConsultarChequeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthRolGuard]
   },
   {
     path: 'busquedaPersona/:persona',
     component: ListarPersonaComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthRolGuard]
   },
   {
     path: 'listarCheques/docu/:docu/secu/:secu/anio/:anio/checkCD/:checkCD',
     component: ListarChequesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthRolGuard]
   },
   {
     path: 'listarCambioDoc/:documento',
     component: ListarCambioDocComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthRolGuard]
   }
 ];
 

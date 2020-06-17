@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthRolGuard implements CanActivate {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
@@ -16,6 +17,11 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
       // authorised so return true
+      if (currentUser.role === undefined) {
+        console.log('no te dejo');
+        this.router.navigate(['/roles'], { queryParams: { returnUrl: state.url } });
+        return false;
+      }
       return true;
     }
 
@@ -23,4 +29,5 @@ export class AuthGuard implements CanActivate {
     this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
     return false;
   }
+
 }

@@ -15,7 +15,8 @@ export class RolesComponent implements OnInit {
 
   rolesAmostrar: Role[];
   habilitado = false;
-
+  hide = true;
+  rol;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -25,14 +26,14 @@ export class RolesComponent implements OnInit {
     this.myForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
     const currentUser = this.authService.currentUserValue;
     if (currentUser) {
-        // authorised so return true
-        this.rolesAmostrar=this.authService.currentUserRoles;
-        this.habilitado= true;
+      // authorised so return true
+      this.rolesAmostrar = this.authService.currentUserRoles;
+      this.habilitado = true;
     }
-    
+
   }
 
   get email() {
@@ -43,21 +44,17 @@ export class RolesComponent implements OnInit {
     return this.myForm.get('password');
   }
 
-  submitHandler(){
-    const formValue = this.myForm.value;
-    this.authService.login(formValue.email, formValue.password).subscribe(
-      (d:any) =>{
-        this.habilitado = true;
-        this.rolesAmostrar=this.authService.currentUserRoles;
-      },
-      error => {
-        console.log('error');
-      }
-    )
+
+
+  logout() {
+    this.authService.logout();
+    this.habilitado = false;
+
   }
 
 
-  entrar(){
+  onSubmit() {
+    this.authService.setearRol(this.rol);
     this.router.navigateByUrl('/busqueda');
   }
 

@@ -38,8 +38,8 @@ export class ConsultarChequeComponent implements OnInit {
     private userService: UserService,
     private logService: LogService,
     private route: ActivatedRoute,
-    private router: Router, 
-    private _snackBar: MatSnackBar) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -56,7 +56,7 @@ export class ConsultarChequeComponent implements OnInit {
       checkCD: false
     });
 
-    const now = new Date().getUTCFullYear();    
+    const now = new Date().getUTCFullYear();
     this.years = Array(now - 1990).fill('').map((v, idx) => now - idx);
   }
 
@@ -84,44 +84,44 @@ export class ConsultarChequeComponent implements OnInit {
 
     const formValue = this.myForm.value;
     console.log(this.myForm.value);
-    let log: Log = new Log();
-    log.docuConsulta =formValue.documento;
+    const log: Log = new Log();
+    log.docuConsulta = formValue.documento;
     log.ejercicioConsulta = formValue.periodo;
     log.secuConsulta = formValue.secuencia;
     this.logService.nuevaBusqueda(log).subscribe(
       data => {
-          if(!formValue.checkCD){
-              this.userService.verSiHuboCambios(formValue.documento).subscribe(
-                (huboCambios: any)=>{
-                  if(huboCambios){
-                    this.router.navigateByUrl(`/listarCambioDoc/${formValue.documento}`);
-                  } else{
-                    this.router.navigateByUrl
-                    (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/${formValue.checkCD}`);
-                  }
-                },
-                error =>{
-                  this._snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
-                    duration: 2000,
-                  });
-                }
-              )
-          } else {
-            this.router.navigateByUrl
+        if (!formValue.checkCD) {
+          this.userService.verSiHuboCambios(formValue.documento).subscribe(
+            (huboCambios: any) => {
+              if (huboCambios) {
+                this.router.navigateByUrl(`/listarCambioDoc/${formValue.documento}`);
+              } else {
+                this.router.navigateByUrl
                   (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/${formValue.checkCD}`);
-          }
-        
+              }
+            },
+            error => {
+              this.snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
+                duration: 2000,
+              });
+            }
+          );
+        } else {
+          this.router.navigateByUrl
+            (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/${formValue.checkCD}`);
+        }
+
       },
-      error =>{
+      error => {
         console.log(error);
-        this._snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
-               duration: 2000,
+        this.snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
+          duration: 2000,
         });
       }
     );
-    
-    
-    //this.router.navigateByUrl(`/listarCheques`);
+
+
+    // this.router.navigateByUrl(`/listarCheques`);
 
     this.loading = false;
   }

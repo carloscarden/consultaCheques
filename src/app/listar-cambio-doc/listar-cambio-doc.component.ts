@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
+
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { UserService } from '../_services';
+
 
 
 export interface Personas {
@@ -30,7 +36,8 @@ export class ListarCambioDocComponent implements OnInit {
   displayedColumns: string[] =
     ['apYnom', 'documento'];
 
-  dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource<Personas>(ELEMENT_DATA);
+  selection = new SelectionModel<Personas>(false, []);
 
   constructor(
     private route: ActivatedRoute,
@@ -39,15 +46,15 @@ export class ListarCambioDocComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let documentoAbuscar = this.route.snapshot.paramMap.get('documento');
+    const documentoAbuscar = this.route.snapshot.paramMap.get('documento');
     this.userService.verCambiosEnElDocumento(documentoAbuscar).subscribe(
-      (data)=>{
+      (data) => {
         console.log('data', data);
       },
-      error =>{
+      error => {
 
       }
-    )
+    );
   }
 
   openDialog() { }

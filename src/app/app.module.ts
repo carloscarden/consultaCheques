@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import {MatInputModule} from '@angular/material/input';
@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -31,6 +32,11 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ToastComponent } from './toast/toast.component';
 import { RolesComponent } from './roles/roles.component';
+import { CommonModule } from '@angular/common/src/common_module';
+import { JwtInterceptor } from './_helper/jwt.interceptor';
+import { ErrorInterceptor } from './_helper/error.interceptor';
+import { fakeBackendProvider } from './_helper/fake-backend';
+import { NoAutorizadoComponent } from './no-autorizado/no-autorizado.component';
 
 
 @NgModule({
@@ -45,7 +51,8 @@ import { RolesComponent } from './roles/roles.component';
     HeaderComponent,
     FooterComponent,
     ToastComponent,
-    RolesComponent
+    RolesComponent,
+    NoAutorizadoComponent
   ],
   entryComponents: [
     ConsultarPersonaComponent, ToastComponent
@@ -65,9 +72,16 @@ import { RolesComponent } from './roles/roles.component';
     MatDialogModule,
     MatTableModule,
     MatToolbarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
