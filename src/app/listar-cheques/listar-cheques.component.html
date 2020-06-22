@@ -1,156 +1,121 @@
 <div class="title"> SELECCIONE LOS QUE QUIERA IMPRIMIR</div>
 
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" align="center">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-     
-      
- 
-
-  <!-- Per&iacute;odo Column -->
-  <ng-container matColumnDef="periodo">
-    <th mat-header-cell *matHeaderCellDef> Per&iacute;odo </th>
-    <td mat-cell *matCellDef="let element"> {{element.periodo}} </td>
-  </ng-container>
-
-  <!-- Per&iacute;odo Column -->
-  <ng-container matColumnDef="documento">
-    <th mat-header-cell *matHeaderCellDef> Documento </th>
-    <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
-  </ng-container>
-
-   <!-- Sec Column -->
-   <ng-container matColumnDef="sec">
-    <th mat-header-cell *matHeaderCellDef> Sec. </th>
-    <td mat-cell *matCellDef="let element"> {{element.secuencia}} </td>
-  </ng-container>
-
-  <!-- Fecha Afec Column -->
-  <ng-container matColumnDef="fechaAfec">
-    <th mat-header-cell *matHeaderCellDef> Fecha Afec </th>
-    <td mat-cell *matCellDef="let element"> {{element.fechaAfec}} </td>
-  </ng-container>
-
-  <!-- Apellido -->
-  <ng-container matColumnDef="apellido">
-    <th mat-header-cell *matHeaderCellDef> Apellido </th>
-    <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-  </ng-container>
-
-  <!-- Foja Column -->
-  <ng-container matColumnDef="foja">
-    <th mat-header-cell *matHeaderCellDef> Foja </th>
-    <td mat-cell *matCellDef="let element"> {{element.foja}} </td>
-  </ng-container>
-
-
-   <!-- Dep Column -->
-   <ng-container matColumnDef="dep">
-    <th mat-header-cell *matHeaderCellDef> Dep. </th>
-    <td mat-cell *matCellDef="let element"> {{element.dep}} </td>
-  </ng-container>
-
-  <!-- Dis Column -->
-  <ng-container matColumnDef="dis">
-    <th mat-header-cell *matHeaderCellDef>Dis </th>
-    <td mat-cell *matCellDef="let element"> {{element.dis}} </td>
-  </ng-container>
-
-  <!-- tor Column -->
-  <ng-container matColumnDef="fecafec">
-    <th mat-header-cell *matHeaderCellDef> Fecha Pago </th>
-    <td mat-cell *matCellDef="let element"> {{element.fecafec}} </td>
-  </ng-container>
-
-  <!-- escu Column -->
-  <ng-container matColumnDef="escu">
-    <th mat-header-cell *matHeaderCellDef> escu </th>
-    <td mat-cell *matCellDef="let element"> {{element.escu}} </td>
-  </ng-container>
-
-
-   <!-- opag Column -->
-   <ng-container matColumnDef="opag">
-    <th mat-header-cell *matHeaderCellDef> opag. </th>
-    <td mat-cell *matCellDef="let element"> {{element.opag}} </td>
-  </ng-container>
-
-  <!-- dopag Column -->
-  <ng-container matColumnDef="dopag">
-    <th mat-header-cell *matHeaderCellDef> dopag </th>
-    <td mat-cell *matCellDef="let element"> {{element.dopag}} </td>
-  </ng-container>
-
-  <!-- cdoc  Column -->
-  <ng-container matColumnDef="tipoOrg">
-    <th mat-header-cell *matHeaderCellDef> cdoc </th>
-    <td mat-cell *matCellDef="let element"> {{element.cdoc}} </td>
-  </ng-container>
-
-  <!-- liquido Column -->
-  <ng-container matColumnDef="liquido">
-    <th mat-header-cell *matHeaderCellDef> liquido. </th>
-    <td mat-cell *matCellDef="let element"> {{element.liquido}} </td>
-  </ng-container>
-
-
-   <!-- nrocheq Column -->
-   <ng-container matColumnDef="nrocheq">
-    <th mat-header-cell *matHeaderCellDef> nrocheq. </th>
-    <td mat-cell *matCellDef="let element"> {{element.nrocheq}} </td>
-  </ng-container>
-
-
-   <!-- fpago Column -->
-   <ng-container matColumnDef="fpago">
-    <th mat-header-cell *matHeaderCellDef> fpago. </th>
-    <td mat-cell *matCellDef="let element"> {{element.fpago}} </td>
-  </ng-container>
-
-
-   <!-- cat Column -->
-   <ng-container matColumnDef="cat">
-    <th mat-header-cell *matHeaderCellDef> cat. </th>
-    <td mat-cell *matCellDef="let element"> {{element.cat}} </td>
-  </ng-container>
-
-
-   <!-- apart Column -->
-   <ng-container matColumnDef="apart">
-    <th mat-header-cell *matHeaderCellDef> apart. </th>
-    <td mat-cell *matCellDef="let element"> {{element.apart}} </td>
-  </ng-container>
-
-  <!-- item Column -->
-  <ng-container matColumnDef="item">
-    <th mat-header-cell *matHeaderCellDef> item. </th>
-    <td mat-cell *matCellDef="let element"> {{element.item}} </td>
-  </ng-container>
-
-  
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()"
-                    [aria-label]="checkboxLabel()">
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
       </mat-checkbox>
     </th>
     <td mat-cell *matCellDef="let row">
       <mat-checkbox (click)="$event.stopPropagation()"
                     (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)"
-                    [aria-label]="checkboxLabel(row)">
+                    [checked]="selection.isSelected(row)">
       </mat-checkbox>
     </td>
   </ng-container>
 
+  <!-- 
+    'select', 'secuencia', 'periodo', 'fechaafec',
+       'foja', 'cargo', 'opag' , 'fpago', 'liquido', 'dep' , 'dis', 'tor', 'escu'
+  -->
+
+
+ 
+
+  
+
+  <!-- SECUENCIA Column -->
+  <ng-container matColumnDef="secuencia">
+    <th mat-header-cell *matHeaderCellDef> SECUENCIA </th>
+    <td mat-cell *matCellDef="let element"> {{element.secuencia}} </td>
+  </ng-container>
+
+
+   <!-- PERIODO Column -->
+   <ng-container matColumnDef="periodo">
+    <th mat-header-cell *matHeaderCellDef> PERIODO </th>
+    <td mat-cell *matCellDef="let element"> {{element.periodo}} </td>
+  </ng-container>
+
+  <!-- FECHA AFEC Column -->
+  <ng-container matColumnDef="fechaafec">
+    <th mat-header-cell *matHeaderCellDef> FECHA AFEC </th>
+    <td mat-cell *matCellDef="let element"> {{element.fechaafec}} </td>
+  </ng-container>
+
+  
+  
+
+  <!-- FOJA Column -->
+  <ng-container matColumnDef="foja">
+    <th mat-header-cell *matHeaderCellDef> FOJA </th>
+    <td mat-cell *matCellDef="let element"> {{element.foja}} </td>
+  </ng-container>
+
+   <!-- OPAG Column -->
+   <ng-container matColumnDef="opag">
+    <th mat-header-cell *matHeaderCellDef> OPAG </th>
+    <td mat-cell *matCellDef="let element"> {{element.opag}} </td>
+  </ng-container>
+
+  <!-- FPAGO Column -->
+  <ng-container matColumnDef="fpago">
+    <th mat-header-cell *matHeaderCellDef> FPAGO </th>
+    <td mat-cell *matCellDef="let element"> {{element.fpago}} </td>
+  </ng-container>
+
+
+
+  <!-- LIQUIDO Column -->
+  <ng-container matColumnDef="liquido">
+    <th mat-header-cell *matHeaderCellDef> LIQUIDO </th>
+    <td mat-cell *matCellDef="let element"> {{element.liquido}} </td>
+  </ng-container>
+
+   
+
+  <!-- CARGO Column -->
+  <ng-container matColumnDef="cargo">
+    <th mat-header-cell *matHeaderCellDef> CARGO </th>
+    <td mat-cell *matCellDef="let element"> {{element.cargo}} </td>
+  </ng-container>
+
+  <!-- DEP Column -->
+  <ng-container matColumnDef="dep">
+    <th mat-header-cell *matHeaderCellDef> APELLIDO </th>
+    <td mat-cell *matCellDef="let element"> {{element.dep}} </td>
+  </ng-container>
+
+  <!-- DIS Column -->
+  <ng-container matColumnDef="dis">
+    <th mat-header-cell *matHeaderCellDef> DIS </th>
+    <td mat-cell *matCellDef="let element"> {{element.dis}} </td>
+  </ng-container>
+
+  <!-- TOR Column -->
+  <ng-container matColumnDef="tor">
+    <th mat-header-cell *matHeaderCellDef> TOR </th>
+    <td mat-cell *matCellDef="let element"> {{element.tor}} </td>
+  </ng-container>
+
+
+  <!-- ESCU Column -->
+  <ng-container matColumnDef="escu">
+    <th mat-header-cell *matHeaderCellDef> ESCU </th>
+    <td mat-cell *matCellDef="let element"> {{element.escu}} </td>
+  </ng-container>
+
+ 
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                        (click)="selection.toggle(row)"></tr>
+      (click)="selection.toggle(row)">
+  </tr>
 </table>
 
 

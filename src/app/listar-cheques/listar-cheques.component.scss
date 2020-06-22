@@ -1,10 +1,19 @@
 table {
-    width: 100%;
-  }
-  .mat-row.hovered {
-      background: #eee;
-  }
-  
-  .mat-row.highlighted {
-    background: #999;
-  }
+  width: 90%;
+  align-self: center;
+}
+
+.mat-row.hovered {
+    background: #eee;
+}
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+
+.mat-row.highlighted {
+  background: #999;
+}

@@ -1,7 +1,12 @@
 import { Distrito } from './distrito';
 
 export class Pers {
-    nombre: string;
-    distrito:Distrito;
     documento: string;
+    apellido: string;
+    descDistrito: string;
+    numDistrito: number;
+    tipo_org: string;
+    dependencia: number;
+    escuela: number;
+    reg: string;
 }

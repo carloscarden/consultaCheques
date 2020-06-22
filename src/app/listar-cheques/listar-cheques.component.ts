@@ -115,12 +115,8 @@ const ELEMENT_DATA: Cheque[] = [
 })
 export class ListarChequesComponent implements OnInit {
   displayedColumns: string[] =
-
-    ['periodo', 'documento', 'secuencia', 'fechaafec',
-      'apellido', 'foja', 'cargo', 'dep',
-      'dis', 'tor', 'escu', 'opag', 'dopag', 'cdoc',
-      'liquido', 'fecafec', 'nrocheq', 'fpago',
-      'cat', 'apart', 'item'];
+  ['select', 'secuencia', 'periodo', 'fechaafec',
+  'foja', 'cargo', 'opag', 'fpago', 'liquido', 'dep', 'dis', 'tor', 'escu'];
 
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<Cheque>([]);
@@ -134,16 +130,18 @@ export class ListarChequesComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    console.log('viene la dataaa!!!!');
     const docu = this.route.snapshot.paramMap.get('docu');
     const secu = this.route.snapshot.paramMap.get('secu');
-    const anio = this.route.snapshot.paramMap.get('anio');
+    const anio = parseInt(this.route.snapshot.paramMap.get('anio'));
     const checkCD = this.route.snapshot.paramMap.get('checkCD');
     this.consultaChequeService.verCheques(docu, secu, anio, checkCD).subscribe(
       data => {
         console.log('datos', data);
-        //this.dataSource = new MatTableDataSource<Cheque>(data);
+        this.dataSource = new MatTableDataSource<Cheque>(data);
       },
       error => {
+        console.log('error!!!!', error);
         this.snackBar.open('Error de conexión, vuelva a intententarlo mas tarde', 'Aceptar', {
           duration: 2000,
         });
@@ -166,16 +164,17 @@ export class ListarChequesComponent implements OnInit {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Cheque): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.dep}`;
+  imprimir() {
+    console.log('seleccion de cheques', this.selection.selected);
+    this.consultaChequeService.imprimirCheques(this.selection.selected).subscribe(
+      data =>{
+        console.log('dataa', data)
+      },
+      error =>{
+        console.log('error', error);
+      }
+    )
   }
-
-
-  imprimir() { }
 
 
   cancelar() {

@@ -97,7 +97,7 @@ export class ConsultarChequeComponent implements OnInit {
                 this.router.navigateByUrl(`/listarCambioDoc/${formValue.documento}`);
               } else {
                 this.router.navigateByUrl
-                  (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/${formValue.checkCD}`);
+                  (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/no`);
               }
             },
             error => {
@@ -108,7 +108,7 @@ export class ConsultarChequeComponent implements OnInit {
           );
         } else {
           this.router.navigateByUrl
-            (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/${formValue.checkCD}`);
+            (`/listarCheques/docu/${formValue.documento}/secu/${formValue.secuencia}/anio/${formValue.periodo}/checkCD/si`);
         }
 
       },
