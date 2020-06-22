@@ -115,8 +115,8 @@ const ELEMENT_DATA: Cheque[] = [
 })
 export class ListarChequesComponent implements OnInit {
   displayedColumns: string[] =
-  ['select', 'secuencia', 'periodo', 'fechaafec',
-  'foja', 'cargo', 'opag', 'fpago', 'liquido', 'dep', 'dis', 'tor', 'escu'];
+    ['select', 'secuencia', 'periodo', 'fechaafec',
+      'foja', 'cargo', 'opag', 'fpago', 'liquido', 'dep', 'dis', 'tor', 'escu'];
 
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   dataSource = new MatTableDataSource<Cheque>([]);
@@ -133,7 +133,7 @@ export class ListarChequesComponent implements OnInit {
     console.log('viene la dataaa!!!!');
     const docu = this.route.snapshot.paramMap.get('docu');
     const secu = this.route.snapshot.paramMap.get('secu');
-    const anio = parseInt(this.route.snapshot.paramMap.get('anio'));
+    const anio = parseInt(this.route.snapshot.paramMap.get('anio'), 10);
     const checkCD = this.route.snapshot.paramMap.get('checkCD');
     this.consultaChequeService.verCheques(docu, secu, anio, checkCD).subscribe(
       data => {
@@ -166,14 +166,42 @@ export class ListarChequesComponent implements OnInit {
 
   imprimir() {
     console.log('seleccion de cheques', this.selection.selected);
-    this.consultaChequeService.imprimirCheques(this.selection.selected).subscribe(
-      data =>{
-        console.log('dataa', data)
-      },
-      error =>{
-        console.log('error', error);
-      }
-    )
+    if (this.selection.selected === []) {
+      this.snackBar.open('Seleccione al menos un cheque para imprimir', 'Aceptar', {
+        duration: 2000,
+      });
+    } else {
+      const fileName = 'reporteCheques.pdf';
+      this.consultaChequeService.imprimirCheques(this.selection.selected).subscribe(
+        (blob: Blob) => {
+          console.log('report is downloaded');
+
+          if (navigator.msSaveBlob) {
+            // IE 10+
+            navigator.msSaveBlob(blob, fileName);
+          } else {
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+              const url = URL.createObjectURL(blob);
+              link.setAttribute('href', url);
+              link.setAttribute('download', fileName);
+              link.style.visibility = 'hidden';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            } else {
+              // html5 download not supported
+              console.log('error!!!');
+            }
+          }
+        },
+        error => {
+          console.log('error', error);
+        }
+      );
+
+    }
+
   }
 
 
